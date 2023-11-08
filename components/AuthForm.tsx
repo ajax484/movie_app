@@ -14,10 +14,17 @@ export default function AuthForm() {
   return (
     <Auth
       supabaseClient={supabase}
-      view="magic_link"
-      appearance={{ theme: ThemeSupa }}
-      showLinks={false}
+      localization={{
+        variables: {
+          sign_in: {
+            email_label: "Your email address",
+            password_label: "Your strong password",
+          },
+        },
+      }}
+      view={"sign_in"}
       providers={[]}
+      appearance={{ theme: ThemeSupa }}
       redirectTo={`${baseURL}/auth/callback`}
     />
   );

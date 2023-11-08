@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import Image from "next/image";
 
@@ -19,6 +19,7 @@ export default function Avatar({
   const supabase = createClientComponentClient();
   const [avatarUrl, setAvatarUrl] = useState<string>("");
   const [uploading, setUploading] = useState<boolean>(false);
+  const inputRef = useRef(null);
 
   useEffect(() => {
     async function downloadImage(path: string) {
@@ -65,6 +66,8 @@ export default function Avatar({
       onUpload && onUpload(filePath);
       alert("Avatar uploaded successfully!");
     } catch (error) {
+      console.log(error);
+      
       alert("Error uploading avatar!");
     } finally {
       setUploading(false);
@@ -89,24 +92,25 @@ export default function Avatar({
         />
       )}
       <div className={`w-${size} ${hideUpload ? "hidden" : "block"}`}>
-        <label
+        <button
           className={`bg-sky-600 hover:opacity-75 text-white rounded-md py-2 px-4 block cursor-pointer ${
             uploading ? "opacity-50" : ""
           }`}
-          htmlFor="single"
+          onClick={() => inputRef.current && inputRef.current.click()}
         >
           {uploading ? "Uploading ..." : "Upload"}
-        </label>
+        </button>
         <input
           style={{
             visibility: "hidden",
             position: "absolute",
           }}
           type="file"
-          id="single"
+          id="image"
           accept="image/*"
           onChange={uploadAvatar}
           disabled={uploading}
+          ref={inputRef}
         />
       </div>
     </div>

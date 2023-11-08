@@ -108,7 +108,7 @@ export default function AccountForm() {
             className="border border-gray-300 p-2 w-full rounded-md"
           />
         </div>
-        <div className="mt-4">
+        <div className="mt-4 flex gap-4">
           <button
             className="bg-sky-600 hover:opacity-75 text-white rounded-md py-2 px-4"
             onClick={() =>
@@ -122,8 +122,17 @@ export default function AccountForm() {
             }
             disabled={fetchingProfile || updatingProfile}
           >
-            {updatingProfile ? "Loading..." : "Update"}
+            {updatingProfile ? "Loading..." : "Update Profile"}
           </button>
+          <form action="/auth/delete" method="post">
+            <button
+              type="submit"
+              className="bg-red-600 hover:opacity-75 text-white rounded-md py-2 px-4"
+              disabled={fetchingProfile || updatingProfile}
+            >
+              Delete Profile
+            </button>
+          </form>
         </div>
       </div>
     </Loading>
