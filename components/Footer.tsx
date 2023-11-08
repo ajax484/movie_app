@@ -20,7 +20,7 @@ const Footer = () => {
         </svg>
       </a>
       <span className="text-2xl">||</span>
-      <a href="">
+      <a href="https://github.com/ajax484/movie_app">
         <svg
           stroke="currentColor"
           fill="none"
