@@ -67,7 +67,7 @@ export default function Avatar({
       alert("Avatar uploaded successfully!");
     } catch (error) {
       console.log(error);
-      
+
       alert("Error uploading avatar!");
     } finally {
       setUploading(false);
@@ -96,7 +96,8 @@ export default function Avatar({
           className={`bg-sky-600 hover:opacity-75 text-white rounded-md py-2 px-4 block cursor-pointer ${
             uploading ? "opacity-50" : ""
           }`}
-          onClick={() => inputRef.current && inputRef.current.click()}
+          // @ts-ignore
+          onClick={() => inputRef.current && inputRef.current?.click()}
         >
           {uploading ? "Uploading ..." : "Upload"}
         </button>
