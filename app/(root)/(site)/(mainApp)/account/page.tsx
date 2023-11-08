@@ -2,7 +2,11 @@
 import { useEffect, useState } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import Avatar from "@/components/Avatar";
-import { useGetProfile, useUpdateProfile } from "@/hooks/profile";
+import {
+  useDeleteAccount,
+  useGetProfile,
+  useUpdateProfile,
+} from "@/hooks/profile";
 import { useSessionContext } from "@supabase/auth-helpers-react";
 import Loading from "@/components/Loading";
 
@@ -22,6 +26,9 @@ export default function AccountForm() {
     error,
   } = useGetProfile({ supabase, id: user?.id });
   const { updateProfile, loading: updatingProfile } = useUpdateProfile({
+    supabase,
+  });
+  const { deleteAccount, loading: deletingAccount } = useDeleteAccount({
     supabase,
   });
 
@@ -124,15 +131,14 @@ export default function AccountForm() {
           >
             {updatingProfile ? "Loading..." : "Update Profile"}
           </button>
-          <form action="/auth/delete" method="post">
-            <button
-              type="submit"
-              className="bg-red-600 hover:opacity-75 text-white rounded-md py-2 px-4"
-              disabled={fetchingProfile || updatingProfile}
-            >
-              Delete Profile
-            </button>
-          </form>
+          <button
+            type="submit"
+            className="bg-red-600 hover:opacity-75 text-white rounded-md py-2 px-4"
+            disabled={fetchingProfile || updatingProfile}
+            onClick={deleteAccount}
+          >
+            {deletingAccount ? "Deleting..." : "Delete Profile"}
+          </button>
         </div>
       </div>
     </Loading>

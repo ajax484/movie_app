@@ -1,5 +1,6 @@
 import { ProfileData } from "@/types/profile";
 import { SupabaseClient } from "@supabase/supabase-js";
+import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
 interface useGetProfileParams {
@@ -47,11 +48,11 @@ export const useGetProfile = ({ id, supabase }: useGetProfileParams) => {
   return { profile, getProfile, loading, error };
 };
 
-interface useUpdateProfileParams {
+export const useUpdateProfile = ({
+  supabase,
+}: {
   supabase: SupabaseClient;
-}
-
-export const useUpdateProfile = ({ supabase }: useUpdateProfileParams) => {
+}) => {
   const [loading, setLoading] = useState<boolean>(false);
 
   async function updateProfile(profile: ProfileData) {
@@ -77,4 +78,31 @@ export const useUpdateProfile = ({ supabase }: useUpdateProfileParams) => {
   }
 
   return { updateProfile, loading };
+};
+
+export const useDeleteAccount = ({
+  supabase,
+}: {
+  supabase: SupabaseClient;
+}) => {
+  const [loading, setLoading] = useState<boolean>(false);
+  const router = useRouter();
+
+  async function deleteAccount() {
+    try {
+      setLoading(true);
+
+      const { error } = await supabase.rpc("delete_user");
+      if (error) throw error;
+      alert("Account deleted!");
+      router.push("/login");
+    } catch (error) {
+      console.log(error);
+      alert("Error deleting the account!");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return { deleteAccount, loading };
 };

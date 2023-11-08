@@ -19,10 +19,11 @@ export default function AuthForm() {
           },
         },
       }}
-      view={"sign_in"}
+      view={"magic_link"}
       providers={[]}
       appearance={{ theme: ThemeSupa }}
       redirectTo={`${baseURL}/auth/callback`}
+      showLinks={false}
     />
   );
 }
