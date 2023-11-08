@@ -5,7 +5,8 @@ import ClientPreventHydration from "@/components/PreventHydration";
 import { useGetProfile } from "@/hooks/profile";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useSessionContext } from "@supabase/auth-helpers-react";
-import React from "react";
+import { useRouter } from "next/navigation";
+import React, { useEffect } from "react";
 
 interface SiteProps {
   children: React.ReactNode;
@@ -21,6 +22,14 @@ const Layout = ({ children }: SiteProps) => {
     loading: fetchingProfile,
     error,
   } = useGetProfile({ supabase, id: user?.id || "" });
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (session?.user.id) {
+      router.push("/");
+    }
+  }, [session, router]);
 
   return (
     <ClientPreventHydration>
