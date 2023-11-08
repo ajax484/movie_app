@@ -7,7 +7,7 @@ import { User } from "@supabase/supabase-js";
 interface HeaderProps {
   profile: ProfileData;
   loading: boolean;
-  user: User;
+  user: User | undefined;
 }
 
 const Header = ({ profile, loading, user }: HeaderProps) => {

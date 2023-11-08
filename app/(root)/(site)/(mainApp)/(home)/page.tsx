@@ -5,7 +5,7 @@ import Pagination from "@/components/Pagination";
 import { useFetchMovies } from "@/hooks/movies";
 import { MovieData } from "@/types/movies";
 import { useDebounce } from "@uidotdev/usehooks";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 
 export default function Page() {
   const [query, setQuery] = useState<string>("");
@@ -28,7 +28,7 @@ export default function Page() {
           type="text"
           className="mt-2 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-200"
           placeholder="Enter your query"
-          onInput={(e) => setQuery(e.target.value)}
+          onInput={(e: ChangeEvent<HTMLInputElement>) => setQuery(e.target.value)}
           value={query}
         />
       </div>

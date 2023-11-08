@@ -8,10 +8,10 @@ import Loading from "@/components/Loading";
 
 export default function AccountForm() {
   const supabase = createClientComponentClient();
-  const [fullname, setFullname] = useState<string | null>(null);
-  const [username, setUsername] = useState<string | null>(null);
-  const [website, setWebsite] = useState<string | null>(null);
-  const [avatar_url, setAvatarUrl] = useState<string | null>(null);
+  const [fullname, setFullname] = useState<string>("");
+  const [username, setUsername] = useState<string>("");
+  const [website, setWebsite] = useState<string>("");
+  const [avatar_url, setAvatarUrl] = useState<string>("");
   const { session } = useSessionContext();
   const user = session?.user;
 
