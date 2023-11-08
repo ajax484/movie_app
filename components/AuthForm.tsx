@@ -6,10 +6,7 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 export default function AuthForm() {
   const supabase = createClientComponentClient();
 
-  const baseURL =
-    process.env.NODE_ENV === "production"
-      ? process.env.NEXT_PUBLIC_APP_URL // Production URL
-      : "http://localhost:3000";
+  const baseURL = process.env.NEXT_PUBLIC_APP_URL;
 
   return (
     <Auth
